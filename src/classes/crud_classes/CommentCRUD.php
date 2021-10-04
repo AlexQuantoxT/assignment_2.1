@@ -27,3 +27,8 @@ class CommentCRUD implements CRUD{
         
     }
 }
+
+//test
+
+$test = new CommentCRUD(new ConnDB);
+print_r($test);
