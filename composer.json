@@ -1,5 +1,8 @@
 {
     "autoload": {
         "psr-4": {"MyApp\\" : "src/"}
+    },
+    "require": {
+        "fzaninotto/faker": "^1.9"
     }
 }
