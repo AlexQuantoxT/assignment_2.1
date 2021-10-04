@@ -486,7 +486,9 @@ class ComposerStaticInit9e323fac850df54ac82c9052bc5176d9
         'MyApp\\classes\\ConnDB' => __DIR__ . '/../..' . '/src/classes/ConnDB.php',
         'MyApp\\classes\\crud_classes\\CommentCRUD' => __DIR__ . '/../..' . '/src/classes/crud_classes/CommentCRUD.php',
         'MyApp\\classes\\crud_classes\\GroupCRUD' => __DIR__ . '/../..' . '/src/classes/crud_classes/GroupCRUD.php',
+        'MyApp\\classes\\crud_classes\\TestClass' => __DIR__ . '/../..' . '/src/classes/crud_classes/TestClass.php',
         'MyApp\\classes\\crud_classes\\UserCRUD' => __DIR__ . '/../..' . '/src/classes/crud_classes/UserCRUD.php',
+        'MyApp\\interfaces\\CRUD' => __DIR__ . '/../..' . '/src/interfaces/CRUD.php',
     );
 
     public static function getInitializer(ClassLoader $loader)

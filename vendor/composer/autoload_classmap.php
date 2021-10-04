@@ -463,5 +463,7 @@ return array(
     'MyApp\\classes\\ConnDB' => $baseDir . '/src/classes/ConnDB.php',
     'MyApp\\classes\\crud_classes\\CommentCRUD' => $baseDir . '/src/classes/crud_classes/CommentCRUD.php',
     'MyApp\\classes\\crud_classes\\GroupCRUD' => $baseDir . '/src/classes/crud_classes/GroupCRUD.php',
+    'MyApp\\classes\\crud_classes\\TestClass' => $baseDir . '/src/classes/crud_classes/TestClass.php',
     'MyApp\\classes\\crud_classes\\UserCRUD' => $baseDir . '/src/classes/crud_classes/UserCRUD.php',
+    'MyApp\\interfaces\\CRUD' => $baseDir . '/src/interfaces/CRUD.php',
 );
