@@ -10,7 +10,7 @@ class ConnDB{
     private $password = '';
     private $dbname = 'assignment_2';
 
-    protected function connect(){
+    public function connect(){
         $db = 'mysql:host=' . $this->host . ';dbname=' . $this->dbname;
         try {
             $pdo = new PDO($db,$this->username,$this->password);
