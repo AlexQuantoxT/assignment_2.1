@@ -3,7 +3,7 @@
 namespace MyApp\classes\crud_classes;
 use \MyApp\classes\ConnDB;
 use \MyApp\interfaces\CRUD;
-require_once '../../../vendor/autoload.php';
+// require_once '../../../vendor/autoload.php';
 class GroupCRUD implements CRUD{
     private $conn;
     public function __construct(ConnDB $conn)
@@ -12,7 +12,8 @@ class GroupCRUD implements CRUD{
     }
     public function create()
     {
-        $sql = "INSERT INTO users VALUES(null,:group_name);";
+        $test = 'aleksa';
+        $sql = "INSERT INTO groups VALUES(null,:group_name);";
         $stmt = $this->conn->prepare($sql);
         return $stmt;
     }
