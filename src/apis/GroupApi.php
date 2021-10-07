@@ -28,7 +28,15 @@ class GroupApi implements Request{
     public function get()
     {
         if(!isset($_GET['group_id'])){
-            return "not set";
+            // return "not set";
+            $stmt = $this->crud->readAll();
+            $stmt->execute();
+            if ($stmt->rowCount() > 0) {
+                foreach ($stmt as $key => $value) {
+                    $arr['data'][] = $value;
+                }
+                return json_encode($arr);
+            }
         }
         //return $_GET['group_id'];
         $stmt = $this->crud->read();
