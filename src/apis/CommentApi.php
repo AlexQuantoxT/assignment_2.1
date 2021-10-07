@@ -29,11 +29,19 @@ class CommentApi implements Request{
     }
     public function get()
     {
-        if(!isset($_GET['intern_id'])){
-            return "not set";
+        if(!isset($_GET['comment_id'])){
+            // return "not set";
+            $stmt = $this->crud->readAll();
+            $stmt->execute();
+            if ($stmt->rowCount() > 0) {
+                foreach ($stmt as $key => $value) {
+                    $arr['data'][] = $value;
+                }
+                return json_encode($arr);
+            }
         }
         $stmt = $this->crud->read();
-        $stmt->bindParam(':intern_id', $_GET['intern_id']);
+        $stmt->bindParam(':comment_id', $_GET['comment_id']);
         $stmt->execute();
         if ($stmt->rowCount() > 0) {
             foreach ($stmt as $key => $value) {
