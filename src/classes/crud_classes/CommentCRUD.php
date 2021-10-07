@@ -16,11 +16,19 @@ class CommentCRUD implements CRUD{
         $stmt = $this->conn->prepare($sql);
         return $stmt;
     }
-    public function read()
+    public function readAll()
     {
         $sql = "SELECT comments.comment_id,comments.comment_text,comments.mentor_id,users.name 
                 AS intern_name,users.lastname as intern_lastname,comments.intern_id 
                 FROM (comments LEFT JOIN users ON intern_id = users.user_id)";
+        $stmt = $this->conn->prepare($sql);
+        return $stmt;        
+    }
+    public function read()
+    {
+        $sql = "SELECT comments.comment_id,comments.comment_text,comments.mentor_id,users.name 
+        AS intern_name,users.lastname as intern_lastname,comments.intern_id 
+        FROM (comments LEFT JOIN users ON intern_id = users.user_id) WHERE comment_id = :comment_id";
         $stmt = $this->conn->prepare($sql);
         return $stmt;
     }
