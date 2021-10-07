@@ -20,7 +20,8 @@ class UserCRUD implements CRUD{
     {
         $sql = "SELECT users.user_id,users.name,users.lastname,groups.group_id, groups.group_name,roles.role_name
                 FROM ((users LEFT JOIN groups ON users.user_id = groups.group_id)
-                LEFT JOIN roles ON users.role_id = roles.role_id) ORDER BY users.name ASC";
+                LEFT JOIN roles ON users.role_id = roles.role_id) WHERE users.role_id = :role_id
+                ORDER BY users.name ASC";
         $stmt = $this->conn->prepare($sql);
         return $stmt;
     }
@@ -28,7 +29,7 @@ class UserCRUD implements CRUD{
     {
         $sql = "SELECT users.user_id,users.name,users.lastname,groups.group_id, groups.group_name,roles.role_name
                 FROM ((users LEFT JOIN groups ON users.user_id = groups.group_id)
-                LEFT JOIN roles ON users.role_id = roles.role_id) WHERE users.user_id = :user_id ORDER BY users.name ASC;";
+                LEFT JOIN roles ON users.role_id = roles.role_id) WHERE users.role_id = :role_id AND users.user_id = :user_id ORDER BY users.name ASC;";
         $stmt = $this->conn->prepare($sql);
         return $stmt;
     }
