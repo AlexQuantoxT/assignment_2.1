@@ -68,14 +68,18 @@ class CommentApi extends Response implements Request{
     {
         $json=file_get_contents("php://input");
         $data=json_decode($json);
-        if(!isset($data->comment_text) || !isset($data->comment_id)){
+        if(!isset($data->comment_text) || !isset($data->comment_id) || !isset($data->mentor_id) || !isset($data->intern_id)){
             return $this->getResponseFailed('invalid parameters');
         }
-        $stmt = $this->crud->update();
-        $stmt->bindParam(':comment_text', $data->comment_text);
-        $stmt->bindParam(':comment_id', $data->comment_id);
-        $status = $stmt->execute();
-        return $this->checkStatus($status);
+        if ($this->crud->check_mentor($data->intern_id,$data->mentor_id)) {
+            $stmt = $this->crud->update();
+            $stmt->bindParam(':comment_text', $data->comment_text);
+            $stmt->bindParam(':comment_id', $data->comment_id);
+            $status = $stmt->execute();
+            return $this->checkStatus($status);
+        }else{
+            return $this->getResponseFailed('not valid mentor');
+        }
     }
     public function delete()
     {

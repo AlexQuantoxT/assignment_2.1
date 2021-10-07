@@ -57,7 +57,10 @@ class CommentCRUD implements CRUD{
             foreach($stmt as $value){
                 $intern_group_id = $value['group_id'];
             }
+        }else{
+            $intern_group_id = "";
         }
+        
         $sql = "SELECT * FROM users WHERE user_id = :mentor_id";
         $stmt = $this->conn->prepare($sql);
         $stmt->bindParam(':mentor_id', $mentor_id);
@@ -66,8 +69,11 @@ class CommentCRUD implements CRUD{
             foreach($stmt as $value){
                 $mentor_group_id = $value['group_id'];
             }
+        }else{
+            $mentor_group_id = "";
         }
-        if ($intern_group_id == $mentor_group_id) {
+        
+        if ($intern_group_id === $mentor_group_id) {
             return true;
         }else{
             return false;
