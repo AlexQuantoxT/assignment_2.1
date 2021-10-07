@@ -16,6 +16,14 @@ class GroupCRUD implements CRUD{
         $stmt = $this->conn->prepare($sql);
         return $stmt;
     }
+    public function readAll()
+    {
+        $sql = "SELECT groups.group_id, groups.group_name, roles.role_name, users.name, users.lastname 
+                FROM ((groups LEFT JOIN users ON groups.group_id = users.group_id) 
+                LEFT JOIN roles ON users.role_id = roles.role_id) ORDER BY groups.group_id ASC";
+        $stmt = $this->conn->prepare($sql);
+        return $stmt;        
+    }
     public function read()
     {
         $sql = "SELECT groups.group_id, groups.group_name, roles.role_name, users.name, users.lastname 
