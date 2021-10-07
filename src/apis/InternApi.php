@@ -27,11 +27,7 @@ class InternApi extends Response implements Request{
         $stmt->bindParam(':role_id', $data->role_id);
         $stmt->bindParam(':group_id', $data->group_id);
         $status = $stmt->execute();
-        if ($status) {
-            return $this->getResponseSuccess();
-        }else{
-            return $this->getResponseFailed();
-        }
+        return $this->checkStatus($status);
     }
     public function get(){
         if(!isset($_GET['user_id'])){
@@ -81,11 +77,7 @@ class InternApi extends Response implements Request{
         $stmt->bindParam(':role_id', $data->role_id);
         $stmt->bindParam(':group_id', $data->group_id);
         $status = $stmt->execute();
-        if ($status) {
-            return $this->getResponseSuccess();
-        }else{
-            return $this->getResponseFailed();
-        }
+        return $this->checkStatus($status);
     }
     public function delete()
     {
@@ -95,11 +87,7 @@ class InternApi extends Response implements Request{
         $stmt = $this->crud->delete();
         $stmt->bindParam(':user_id', $_GET['user_id']);
         $status = $stmt->execute();
-        if ($status) {
-            return $this->getResponseSuccess();
-        }else{
-            return $this->getResponseFailed();
-        }
+        return $this->checkStatus($status);
     }
 
     //See the request

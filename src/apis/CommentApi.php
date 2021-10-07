@@ -27,11 +27,7 @@ class CommentApi extends Response implements Request{
             $stmt->bindParam(':mentor_id', $data->mentor_id);
             $stmt->bindParam(':intern_id', $data->intern_id);
             $status = $stmt->execute();
-            if($status){
-                return $this->getResponseSuccess();
-            }else{
-                return $this->getResponseFailed();
-            }
+            return $this->checkStatus($status);
         }else{
             return $this->getResponseFailed('not valid mentor');
         }
@@ -79,11 +75,7 @@ class CommentApi extends Response implements Request{
         $stmt->bindParam(':comment_text', $data->comment_text);
         $stmt->bindParam(':comment_id', $data->comment_id);
         $status = $stmt->execute();
-        if ($status) {
-           return $this->getResponseSuccess();
-        }else{
-            return $this->getResponseFailed();
-        }
+        return $this->checkStatus($status);
     }
     public function delete()
     {
@@ -93,11 +85,7 @@ class CommentApi extends Response implements Request{
         $stmt = $this->crud->delete();
         $stmt->bindParam(':comment_id', $_GET['comment_id']);
         $status = $stmt->execute();
-        if ($status) {
-            return $this->getResponseSuccess();
-        }else{
-            return $this->getResponseFailed();
-        }
+        return $this->checkStatus($status);
     }
     //See the request
     public function getRequest(){

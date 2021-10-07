@@ -25,11 +25,7 @@ class GroupApi extends Response implements Request{
         $stmt = $this->crud->create();
         $stmt->bindParam(':group_name', $data->group_name);
         $status = $stmt->execute();
-        if($status){
-            return $this->getResponseSuccess();
-        }else{
-            return $this->getResponseFailed();
-        }
+        return $this->checkStatus($status);
     }
     public function get()
     {
@@ -76,11 +72,7 @@ class GroupApi extends Response implements Request{
         $stmt->bindParam(':group_name', $data->group_name);
         $stmt->bindParam(':group_id', $data->group_id);
         $status = $stmt->execute();
-        if ($status) {
-            return $this->getResponseSuccess();
-        }else{
-            return $this->getResponseFailed();
-        }
+        return $this->checkStatus($status);
     }
     public function delete()
     {
@@ -90,11 +82,7 @@ class GroupApi extends Response implements Request{
         $stmt = $this->crud->delete();
         $stmt->bindParam(':group_id', $_GET['group_id']);
         $status = $stmt->execute();
-        if ($status) {
-            return $this->getResponseSuccess();
-        }else{
-            return $this->getResponseFailed();
-        }
+        return $this->checkStatus($status);
     }
     
 //See the request

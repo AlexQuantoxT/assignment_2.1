@@ -13,4 +13,11 @@ class Response{
         http_response_code(400);
         return json_encode($this->failed . ' ' . $message);
     }
+    public function checkStatus($status){
+        if($status){
+            return $this->getResponseSuccess();
+        }else{
+            return $this->getResponseFailed();
+        }
+    }
 }
