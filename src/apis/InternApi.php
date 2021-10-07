@@ -8,6 +8,7 @@ require_once '../../vendor/autoload.php';
 
 class InternApi implements Request{
     private $crud;
+    private $intern = 2;
     public function __construct(UserCRUD $uc)
     {
         $this->crud = $uc;
@@ -29,10 +30,20 @@ class InternApi implements Request{
     }
     public function get(){
         if(!isset($_GET['user_id'])){
-            return "not set";
+            // return "not set";
+            $stmt = $this->crud->readAll();
+            $stmt->bindParam(':role_id', $this->intern);
+            $stmt->execute();
+            if ($stmt->rowCount() > 0) {
+                foreach ($stmt as $key => $value) {
+                    $arr['data'][] = $value;
+                }
+                return json_encode($arr);
+            }
         }
         $stmt = $this->crud->read();
         $stmt->bindParam(':user_id', $_GET['user_id']);
+        $stmt->bindParam(':role_id', $this->intern);
         $stmt->execute();
         if ($stmt->rowCount() > 0) {
             foreach ($stmt as $key => $value) {
