@@ -3,7 +3,7 @@
 namespace MyApp\classes\crud_classes;
 use \MyApp\classes\ConnDB;
 use MyApp\interfaces\CRUD;
-require_once '../../../vendor/autoload.php';
+// require_once '../../../vendor/autoload.php';
 class UserCRUD implements CRUD{
     private $conn;
     public function __construct(ConnDB $conn)
