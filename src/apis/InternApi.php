@@ -4,9 +4,10 @@ namespace MyApp\classes\apis;
 use MyApp\classes\ConnDB;
 use MyApp\interfaces\Request;
 use MyApp\classes\crud_classes\UserCRUD;
+use MyApp\classes\Response;
 require_once '../../vendor/autoload.php';
 
-class InternApi implements Request{
+class InternApi extends Response implements Request{
     private $crud;
     private $intern = 2;
     public function __construct(UserCRUD $uc)
@@ -18,38 +19,52 @@ class InternApi implements Request{
         $json=file_get_contents("php://input");
         $data=json_decode($json);
         if(!isset($data->user_name) || !isset($data->user_lastname) || !isset($data->role_id) || !isset($data->group_id)){
-            return "not set";
+            return $this->getResponseFailed('invalid parameters');
         }
-        // return $data->group_name;
         $stmt = $this->crud->create();
         $stmt->bindParam(':user_name', $data->user_name);
         $stmt->bindParam(':user_lastname', $data->user_lastname);
         $stmt->bindParam(':role_id', $data->role_id);
         $stmt->bindParam(':group_id', $data->group_id);
-        $stmt->execute();
+        $status = $stmt->execute();
+        if ($status) {
+            return $this->getResponseSuccess();
+        }else{
+            return $this->getResponseFailed();
+        }
     }
     public function get(){
         if(!isset($_GET['user_id'])){
-            // return "not set";
             $stmt = $this->crud->readAll();
             $stmt->bindParam(':role_id', $this->intern);
-            $stmt->execute();
+            $status = $stmt->execute();
+            if ($status) {
+                $this->getResponseSuccess();
+                if ($stmt->rowCount() > 0) {
+                    foreach ($stmt as $key => $value) {
+                        $arr['data'][] = $value;
+                    }
+                    return json_encode($arr);
+                }
+            }else{
+                return $this->getResponseFailed();
+            }
+            
+        }
+        $stmt = $this->crud->read();
+        $stmt->bindParam(':user_id', $_GET['user_id']);
+        $stmt->bindParam(':role_id', $this->intern);
+        $status = $stmt->execute();
+        if ($status) {
+            $this->getResponseSuccess();
             if ($stmt->rowCount() > 0) {
                 foreach ($stmt as $key => $value) {
                     $arr['data'][] = $value;
                 }
                 return json_encode($arr);
             }
-        }
-        $stmt = $this->crud->read();
-        $stmt->bindParam(':user_id', $_GET['user_id']);
-        $stmt->bindParam(':role_id', $this->intern);
-        $stmt->execute();
-        if ($stmt->rowCount() > 0) {
-            foreach ($stmt as $key => $value) {
-                $arr['data'][] = $value;
-            }
-            return json_encode($arr);
+        }else{
+            return $this->getResponseFailed();
         }
     }
     public function patch()
@@ -57,7 +72,7 @@ class InternApi implements Request{
         $json=file_get_contents("php://input");
         $data=json_decode($json);
         if(!isset($data->user_id) || !isset($data->user_name) || !isset($data->user_lastname) || !isset($data->role_id) || !isset($data->group_id)){
-            return "not set";
+            return $this->getResponseFailed('invalid parameters');
         }
         $stmt = $this->crud->update();
         $stmt->bindParam(':user_id', $data->user_id);
@@ -65,16 +80,26 @@ class InternApi implements Request{
         $stmt->bindParam(':user_lastname', $data->user_lastname);
         $stmt->bindParam(':role_id', $data->role_id);
         $stmt->bindParam(':group_id', $data->group_id);
-        $stmt->execute();
+        $status = $stmt->execute();
+        if ($status) {
+            return $this->getResponseSuccess();
+        }else{
+            return $this->getResponseFailed();
+        }
     }
     public function delete()
     {
         if(!isset($_GET['user_id'])){
-            return "not set";
+            return $this->getResponseFailed('invalid parameters');
         }
         $stmt = $this->crud->delete();
         $stmt->bindParam(':user_id', $_GET['user_id']);
-        $stmt->execute();
+        $status = $stmt->execute();
+        if ($status) {
+            return $this->getResponseSuccess();
+        }else{
+            return $this->getResponseFailed();
+        }
     }
 
     //See the request
