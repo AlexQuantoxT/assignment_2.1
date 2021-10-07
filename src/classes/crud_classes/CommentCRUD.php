@@ -20,7 +20,7 @@ class CommentCRUD implements CRUD{
     {
         $sql = "SELECT comments.comment_id,comments.comment_text,comments.mentor_id,users.name 
                 AS intern_name,users.lastname as intern_lastname,comments.intern_id 
-                FROM (comments LEFT JOIN users ON intern_id = users.user_id)";
+                FROM (comments LEFT JOIN users ON intern_id = users.user_id) ORDER BY comments.comment_time DESC";
         $stmt = $this->conn->prepare($sql);
         return $stmt;        
     }
