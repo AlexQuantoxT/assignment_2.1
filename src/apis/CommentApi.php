@@ -104,6 +104,6 @@ class CommentApi extends Response implements Request{
         }
     }
 }
-//test
-$test = new CommentApi(new CommentCRUD(new ConnDB()));
-print_r($test->getRequest());
+//instantiating CommentApi class
+$commentApi = new CommentApi(new CommentCRUD(new ConnDB()));
+print_r($commentApi->getRequest());

@@ -103,6 +103,6 @@ class InternApi extends Response implements Request{
         }
     }
 }
-//test
-$test = new InternApi(new UserCRUD(new ConnDB()));
-print_r($test->getRequest());
+//instantiating InternApi class
+$internApi = new InternApi(new UserCRUD(new ConnDB()));
+print_r($internApi->getRequest());

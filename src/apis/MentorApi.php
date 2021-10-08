@@ -102,6 +102,6 @@ class MentorApi extends Response implements Request{
         }
     }
 }
-//test
-$test = new MentorApi(new UserCRUD(new ConnDB()));
-print_r($test->getRequest());
+//instantiating MentorApi class
+$mentorApi = new MentorApi(new UserCRUD(new ConnDB()));
+print_r($mentorApi->getRequest());

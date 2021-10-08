@@ -21,7 +21,6 @@ class GroupApi extends Response implements Request{
         if(!isset($data->group_name)){
             return $this->getResponseFailed('invalid parameters');
         }
-        // return $data->group_name;
         $stmt = $this->crud->create();
         $stmt->bindParam(':group_name', $data->group_name);
         $status = $stmt->execute();
@@ -98,6 +97,6 @@ class GroupApi extends Response implements Request{
         }
     }
 }
-//test
-$test = new GroupApi(new GroupCRUD(new ConnDB()));
-print_r($test->getRequest());
+//instantiating GroupApi class
+$groupApi = new GroupApi(new GroupCRUD(new ConnDB()));
+print_r($groupApi->getRequest());
